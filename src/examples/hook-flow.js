@@ -2,10 +2,6 @@
 // https://github.com/donavon/hook-flow
 // http://localhost:3000/isolated/examples/hook-flow.js
 
-// PLEASE NOTE: there was a subtle change in the order of cleanup functions
-// getting called in React 17:
-// https://github.com/kentcdodds/react-hooks/issues/90
-
 import * as React from 'react'
 
 function Child() {
@@ -69,27 +65,27 @@ function App() {
   })
 
   React.useEffect(() => {
-    console.log('%cApp: useEffect(() => {})', 'color: LightCoral')
+    console.log('%cApp: useEffect(() => {}) 1', 'color: LightCoral')
     return () => {
-      console.log('%cApp: useEffect(() => {}) cleanup 🧹', 'color: LightCoral')
+      console.log('%cApp: useEffect(() => {}) cleanup 🧹 1', 'color: LightCoral')
     }
   })
 
   React.useEffect(() => {
-    console.log('%cApp: useEffect(() => {}, [])', 'color: MediumTurquoise')
+    console.log('%cApp: useEffect(() => {}, []) 2', 'color: MediumTurquoise')
     return () => {
       console.log(
-        '%cApp: useEffect(() => {}, []) cleanup 🧹',
+        '%cApp: useEffect(() => {}, []) cleanup 🧹 2',
         'color: MediumTurquoise',
       )
     }
   }, [])
 
   React.useEffect(() => {
-    console.log('%cApp: useEffect(() => {}, [showChild])', 'color: HotPink')
+    console.log('%cApp: useEffect(() => {}, [showChild]) 3', 'color: HotPink')
     return () => {
       console.log(
-        '%cApp: useEffect(() => {}, [showChild]) cleanup 🧹',
+        '%cApp: useEffect(() => {}, [showChild]) cleanup 🧹 3',
         'color: HotPink',
       )
     }

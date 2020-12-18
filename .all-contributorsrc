@@ -283,24 +283,6 @@
       "contributions": [
         "doc"
       ]
-    },
-    {
-      "login": "nekhaevskiy",
-      "name": "Yury Nekhaevskiy",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/15379100?v=4",
-      "profile": "https://github.com/nekhaevskiy",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "mansn",
-      "name": "Måns Nilsson",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/4518977?v=4",
-      "profile": "https://github.com/mansn",
-      "contributions": [
-        "doc"
-      ]
     }
   ],
   "contributorsPerLine": 7,

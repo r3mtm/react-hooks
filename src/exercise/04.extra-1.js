@@ -14,6 +14,7 @@ function Board() {
       }
       return defaultValue;
     });
+
     const keyRef = React.useRef(key);
 
     React.useEffect(() => {
@@ -29,25 +30,17 @@ function Board() {
     
   }
 
-  const [moves, setMoves] = 
-    useLocalStorageState('moves', [Array(9).fill(null)]);
-  
-  const [current, setCurrent] = 
-    useLocalStorageState('current', 0);
-  
-  if (!moves[current]) {
-    setCurrent(0)
-    return
-  }
-  
-  const nextValue = calculateNextValue(moves[current]);
-  const winner = calculateWinner(moves[current]);
-  const status = calculateStatus(winner, moves[current], nextValue);
+  const [squares, setSquares] = 
+    useLocalStorageState('squares', Array(9).fill(null));
+
+  const nextValue = calculateNextValue(squares);
+  const winner = calculateWinner(squares);
+  const status = calculateStatus(winner, squares, nextValue);
 
 
 
   function selectSquare(square) {
-    const currentSquare = moves[current];
+    const currentSquare = squares
     if (winner || currentSquare[square]) {
       return
     }
@@ -55,57 +48,24 @@ function Board() {
     const squaresCopy = [...currentSquare];
     squaresCopy[square] = calculateNextValue(currentSquare);
     
-    const movesCopy = [...moves];
-    movesCopy.push(squaresCopy);
-    setMoves(movesCopy);
-    setCurrent(current + 1);
+    setSquares(squaresCopy)
   }
 
 
   function restart() {
-    // setSquares(Array(9).fill(null));
-    setCurrent(0);
-    setMoves([Array(9).fill(null)]);
+    setSquares(Array(9).fill(null));
   }
 
   function renderSquare(i) {
     return (
       <button className="square" onClick={() => selectSquare(i)}>
-        {moves[current][i]}
+        {squares[i]}
       </button>
     )
   }
-
-  function selectMove(moveNumber) {
-    setCurrent(moveNumber);
-  }
-
-  function renderHistoryButtons() {
-    const buttons = moves.map((item, index) => {
-      const desc = index === 0 ? 'Go to game start' : 'Go to move';
-      const isCurrent = index === current;
-      return (
-        <li key={index}>
-          <button disabled={isCurrent} onClick={() => selectMove(index)}>
-            {`${desc} #${index}`} {isCurrent ? '(current)' : ''}
-          </button>
-        </li>
-      )
-    })
-
-    return(
-      <div style={{marginTop: '10px', padding: '5px'}}>
-        <ol>
-          {buttons}
-        </ol>
-      </div>
-    )
-  }
-
   return (
     <>
     <div>
-      {/* 🐨 put the status in the div below */}
       <div className="status">
         {status}
       </div>
@@ -128,7 +88,6 @@ function Board() {
         restart
       </button>
     </div>
-      {renderHistoryButtons()}
     </>
   )
 }
